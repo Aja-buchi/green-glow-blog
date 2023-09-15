@@ -17,17 +17,23 @@ public class PostController {
     private PostService postService;
 
     @PostMapping
-    ResponseEntity<PostDto> createPost (@RequestBody PostDto postDto){
+    public ResponseEntity<PostDto> createPost (@RequestBody PostDto postDto){
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
     }
 
     @GetMapping
-    List<PostDto> getAllPosts(){
+    public List<PostDto> getAllPosts(){
         return postService.getAllPosts();
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<PostDto> getPostById(@PathVariable Long id){
+    public ResponseEntity<PostDto> getPostById(@PathVariable Long id){
        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PostDto> updatePost(@RequestBody PostDto postDto, @PathVariable Long id){
+        PostDto postResponse = postService.updatePost(postDto, id);
+        return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
 }
