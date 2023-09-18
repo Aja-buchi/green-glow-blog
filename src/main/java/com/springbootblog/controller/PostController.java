@@ -3,6 +3,7 @@ package com.springbootblog.controller;
 import com.springbootblog.dto.PostDto;
 import com.springbootblog.dto.PostResponse;
 import com.springbootblog.service.PostService;
+import com.springbootblog.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +27,13 @@ public class PostController {
     @GetMapping
     //Get all post by id Rest api with pagination
     public PostResponse getAllPosts(
-            @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
+            //implement pagination & sorting
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDir){
 
-        return postService.getAllPosts(pageNo, pageSize);
+        return postService.getAllPosts(pageNo, pageSize, sortBy, sortDir);
     }
 
     //Get post by id Rest api
