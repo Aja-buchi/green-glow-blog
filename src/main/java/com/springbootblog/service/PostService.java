@@ -1,6 +1,7 @@
 package com.springbootblog.service;
 
 import com.springbootblog.dto.PostDto;
+import com.springbootblog.dto.PostResponse;
 import com.springbootblog.entity.Post;
 
 import java.util.List;
@@ -9,11 +10,11 @@ import java.util.Optional;
 public interface PostService {
     PostDto createPost (PostDto postDto);
 
-    List<PostDto> getAllPosts();
+    PostResponse getAllPosts(int pageNo, int pageSize);
 
     PostDto getPostById(Long id);
 
-//    PostDto deletePostById (Long id);
+    void deletePostById (Long id);
 
     PostDto updatePost(PostDto postDto, Long id);
 }
