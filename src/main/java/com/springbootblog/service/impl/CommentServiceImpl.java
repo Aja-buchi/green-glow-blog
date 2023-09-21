@@ -3,11 +3,13 @@ package com.springbootblog.service.impl;
 import com.springbootblog.dto.CommentDto;
 import com.springbootblog.entity.Comment;
 import com.springbootblog.entity.Post;
+import com.springbootblog.exception.BlogAPIException;
 import com.springbootblog.exception.ResourceNotFoundException;
 import com.springbootblog.repository.CommentRepository;
 import com.springbootblog.repository.PostRepository;
 import com.springbootblog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +46,37 @@ public class CommentServiceImpl implements CommentService {
         //convert list of comment entities to list of comment dto's
 
         return comments.stream().map(comment -> mapToDto(comment)).collect(Collectors.toList());
+    }
+
+    @Override
+    public CommentDto getCommentsById(Long postId, Long commentId) {
+        //retrieve post by postId
+        Post post = postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("posts", "id", postId));
+
+        //retrieve comment by commentId
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("comments","id", commentId));
+
+        if (!comment.getPost().getId().equals(post.getId())){
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST, "comment does not belong to this post");
+        }
+        return mapToDto(comment);
+    }
+
+    @Override
+    public CommentDto updateComment(Long postId, Long commentId, CommentDto commentRequest) {
+        Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("posts", "postId", postId));
+
+        Comment comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("comments", "commentId", commentId));
+
+        if (!comment.getPost().getId().equals(post.getId())) {
+            throw new BlogAPIException(HttpStatus.BAD_REQUEST,"Comment does not belong to post");
+        }
+        comment.setName(commentRequest.getName());
+        comment.setEmail(commentRequest.getEmail());
+        comment.setBody(commentRequest.getBody());
+
+        Comment updatedComment = commentRepository.save(comment);
+        return mapToDto(updatedComment);
     }
 
     //covert Entity to Dto
