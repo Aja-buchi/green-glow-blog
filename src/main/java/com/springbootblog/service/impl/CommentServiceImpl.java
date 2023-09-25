@@ -8,6 +8,7 @@ import com.springbootblog.exception.ResourceNotFoundException;
 import com.springbootblog.repository.CommentRepository;
 import com.springbootblog.repository.PostRepository;
 import com.springbootblog.service.CommentService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     @Autowired
     private PostRepository postRepository;
+    private ModelMapper mapper;
 
     @Override
     public CommentDto createComment(CommentDto commentDto, Long postId) {
@@ -79,23 +81,37 @@ public class CommentServiceImpl implements CommentService {
         return mapToDto(updatedComment);
     }
 
-    //covert Entity to Dto
+    @Override
+    public void deleteComment(Long postId, Long commentId) {
+        //retrieve post by postId
+        Post post = postRepository.findById(postId).orElseThrow(()->new ResourceNotFoundException("posts", "postId", postId));
+
+        //retrieve comment by commentId
+        Comment  comment = commentRepository.findById(commentId).orElseThrow(()->new ResourceNotFoundException("comments", "commentId", commentId));
+
+        if (!comment.getPost().getId().equals(post.getId())){
+            throw  new BlogAPIException(HttpStatus.BAD_REQUEST, "Comment does not belong to Post");
+        }
+        commentRepository.delete(comment);
+    }
+
+    //using mapper to covert Entity to Dto
     private CommentDto mapToDto(Comment comment){
-        CommentDto commentDto = new CommentDto();
-        commentDto.setId(comment.getId());
-        commentDto.setBody(comment.getBody());
-        commentDto.setName(comment.getName());
-        commentDto.setEmail(comment.getEmail());
+        CommentDto commentDto = mapper.map(comment, CommentDto.class);
+//        commentDto.setId(comment.getId());
+//        commentDto.setBody(comment.getBody());
+//        commentDto.setName(comment.getName());
+//        commentDto.setEmail(comment.getEmail());
         return commentDto;
     }
 
-    //covert Dto to Entity
+    //using mapper to covert Dto to Entity
     private Comment mapToEntity(CommentDto commentDto){
-        Comment comment = new Comment();
-        comment.setId(comment.getId());
-        comment.setName(comment.getEmail());
-        comment.setBody(commentDto.getBody());
-        comment.setEmail(comment.getEmail());
+        Comment comment = mapper.map(commentDto, Comment.class);
+//        comment.setId(comment.getId());
+//        comment.setName(comment.getEmail());
+//        comment.setBody(commentDto.getBody());
+//        comment.setEmail(comment.getEmail());
         return comment;
     }
 }

@@ -6,6 +6,7 @@ import com.springbootblog.entity.Post;
 import com.springbootblog.exception.ResourceNotFoundException;
 import com.springbootblog.repository.PostRepository;
 import com.springbootblog.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,13 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private ModelMapper mapper;
+//    public PostServiceImpl(ModelMapper mapper){
+//        this.mapper = mapper;
+//    }
+
     @Override
     public PostDto createPost(PostDto postDto) {
 
@@ -85,22 +93,23 @@ public class PostServiceImpl implements PostService {
         return mapToDTO(updatedPost);
     }
 
-    //convert DTO to entity
+    //using mapper to convert DTO to entity
     private Post mapToEntity(PostDto postDto){
-        Post post = new Post();
-        post.setId(postDto.getId());
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
+        Post post = mapper.map(postDto, Post.class);
+//        post.setId(postDto.getId());
+//        post.setTitle(postDto.getTitle());
+//        post.setDescription(postDto.getDescription());
+//        post.setContent(postDto.getContent());
         return post;
     }
-    //convert entity back to DTO
+    //using mapper to convert entity back to DTO
     private PostDto mapToDTO(Post post){
-        PostDto postResponse = new PostDto();
-        postResponse.setId(post.getId());
-        postResponse.setTitle(post.getTitle());
-        postResponse.setDescription(post.getDescription());
-        postResponse.setContent(post.getContent());
+        PostDto postResponse = mapper.map(post,PostDto.class);
+//        PostDto postResponse = new PostDto();
+//        postResponse.setId(post.getId());
+//        postResponse.setTitle(post.getTitle());
+//        postResponse.setDescription(post.getDescription());
+//        postResponse.setContent(post.getContent());
         return postResponse;
     }
 }
