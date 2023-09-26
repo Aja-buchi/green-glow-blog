@@ -22,6 +22,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
     private ModelMapper mapper;
 
     @Override
