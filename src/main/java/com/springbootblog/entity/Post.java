@@ -24,7 +24,6 @@ public class Post {
     private String content;
 
 
-
     //one post to many comments
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
