@@ -14,8 +14,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String email;
     private String body;
+    private String email;
+//    private String email;
 
     //many comments to one post
     @ManyToOne(fetch = FetchType.LAZY)
