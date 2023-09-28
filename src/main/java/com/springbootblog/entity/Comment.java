@@ -16,7 +16,7 @@ public class Comment {
     private String name;
     private String body;
     private String email;
-//    private String email;
+    
 
     //many comments to one post
     @ManyToOne(fetch = FetchType.LAZY)
