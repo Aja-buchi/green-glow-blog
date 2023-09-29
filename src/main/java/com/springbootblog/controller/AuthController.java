@@ -1,6 +1,7 @@
 package com.springbootblog.controller;
 
 import com.springbootblog.dto.LoginDto;
+import com.springbootblog.dto.RegisterDto;
 import com.springbootblog.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,16 @@ public class AuthController {
     private AuthService authService;
 
     //Build a login REST API
-    @PostMapping({"/login", "signin"})
+    @PostMapping(value = {"/login", "signin"})
     public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
         String response = authService.login(loginDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //Build a register REST API
+    @PostMapping(value = {"/register", "signup"})
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
+        String response = authService.register(registerDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
