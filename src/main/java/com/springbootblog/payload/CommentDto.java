@@ -1,6 +1,5 @@
-package com.springbootblog.dto;
+package com.springbootblog.payload;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

@@ -1,4 +1,4 @@
-package com.springbootblog.dto;
+package com.springbootblog.payload;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

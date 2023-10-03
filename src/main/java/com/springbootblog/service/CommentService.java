@@ -1,8 +1,6 @@
 package com.springbootblog.service;
 
-import com.springbootblog.dto.CommentDto;
-import com.springbootblog.entity.Post;
-import org.springframework.stereotype.Service;
+import com.springbootblog.payload.CommentDto;
 
 import java.util.List;
 

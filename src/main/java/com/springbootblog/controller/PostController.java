@@ -1,7 +1,7 @@
 package com.springbootblog.controller;
 
-import com.springbootblog.dto.PostDto;
-import com.springbootblog.dto.PostResponse;
+import com.springbootblog.payload.PostDto;
+import com.springbootblog.payload.PostResponse;
 import com.springbootblog.service.PostService;
 import com.springbootblog.utils.AppConstants;
 import jakarta.validation.Valid;

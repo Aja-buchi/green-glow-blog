@@ -1,6 +1,6 @@
 package com.springbootblog.controller;
 
-import com.springbootblog.dto.CommentDto;
+import com.springbootblog.payload.CommentDto;
 import com.springbootblog.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

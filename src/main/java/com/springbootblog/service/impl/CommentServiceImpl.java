@@ -1,6 +1,6 @@
 package com.springbootblog.service.impl;
 
-import com.springbootblog.dto.CommentDto;
+import com.springbootblog.payload.CommentDto;
 import com.springbootblog.entity.Comment;
 import com.springbootblog.entity.Post;
 import com.springbootblog.exception.BlogAPIException;

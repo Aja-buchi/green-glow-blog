@@ -1,7 +1,7 @@
 package com.springbootblog.service.impl;
 
-import com.springbootblog.dto.LoginDto;
-import com.springbootblog.dto.RegisterDto;
+import com.springbootblog.payload.LoginDto;
+import com.springbootblog.payload.RegisterDto;
 import com.springbootblog.entity.Role;
 import com.springbootblog.entity.User;
 import com.springbootblog.exception.BlogAPIException;

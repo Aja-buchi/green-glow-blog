@@ -1,4 +1,4 @@
-package com.springbootblog.dto;
+package com.springbootblog.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.springbootblog.service;
 
-import com.springbootblog.dto.LoginDto;
-import com.springbootblog.dto.RegisterDto;
+import com.springbootblog.payload.LoginDto;
+import com.springbootblog.payload.RegisterDto;
 
 public interface AuthService {
     String login(LoginDto loginDto);

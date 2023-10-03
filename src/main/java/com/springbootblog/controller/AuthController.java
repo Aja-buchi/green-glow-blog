@@ -1,8 +1,8 @@
 package com.springbootblog.controller;
 
-import com.springbootblog.dto.JWTAuthResponse;
-import com.springbootblog.dto.LoginDto;
-import com.springbootblog.dto.RegisterDto;
+import com.springbootblog.payload.JWTAuthResponse;
+import com.springbootblog.payload.LoginDto;
+import com.springbootblog.payload.RegisterDto;
 import com.springbootblog.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
