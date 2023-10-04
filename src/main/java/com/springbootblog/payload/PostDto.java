@@ -2,11 +2,13 @@ package com.springbootblog.payload;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
-@Data
+@Data @AllArgsConstructor @NoArgsConstructor
 public class PostDto {
     private Long id;
 
@@ -24,4 +26,7 @@ public class PostDto {
 
     //including sets of comments when fetching posts
     private Set<CommentDto> comments;
+
+    //all you attach a post to a category
+    private Long categoryId;
 }
