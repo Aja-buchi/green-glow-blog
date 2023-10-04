@@ -36,4 +36,11 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> updateCategory(@RequestBody CategoryDto categoryDto, @PathVariable("id") Long categoryId){
         return new ResponseEntity<>(categoryService.updateCategory(categoryDto, categoryId),HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteCategory(@PathVariable("id") Long categoryId){
+        categoryService.deleteById(categoryId);
+        return new ResponseEntity<>("Category deleted successfully", HttpStatus.OK);
+    }
 }
