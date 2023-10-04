@@ -5,6 +5,7 @@ import com.springbootblog.payload.PostDto;
 import com.springbootblog.payload.PostResponse;
 import com.springbootblog.service.PostService;
 import com.springbootblog.utils.AppConstants;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ public class PostController {
 
     //Create post Rest api
     @PostMapping
+    //enables authorization header for this endpoint in swagger UI
+    @SecurityRequirement(name = "Bear Authentication")
     @PreAuthorize("hasRole('ADMIN')") //only admin can create post
     public ResponseEntity<PostDto> createPost (@Valid @RequestBody PostDto postDto){
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
@@ -49,6 +52,8 @@ public class PostController {
 
     //Update post by id Rest api
     @PutMapping("/{id}")
+    //enables authorization header for this endpoint in swagger UI
+    @SecurityRequirement(name = "Bear Authentication")
     @PreAuthorize("hasRole('ADMIN')") //only admin can update post
     public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable Long id){
         PostDto postResponse = postService.updatePost(postDto, id);
@@ -57,6 +62,8 @@ public class PostController {
 
     //Update post by id Rest api
     @DeleteMapping("/{id}")
+    //enables authorization header for this endpoint in swagger UI
+    @SecurityRequirement(name = "Bear Authentication")
     @PreAuthorize("hasRole('ADMIN')") //only admin can delete post
     public ResponseEntity<String> deletePostById(@PathVariable Long id){
         postService.deletePostById(id);
