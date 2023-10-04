@@ -53,6 +53,8 @@ public class SecurityConfig {
 //                                authorize.anyRequest().authenticated()
                                 authorize.requestMatchers(HttpMethod.GET, "*/api/**").permitAll()
                                         .requestMatchers(HttpMethod.GET, "/api/auth/**").permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll() //gives public access to swagger doc openAPI urls
+                                        .requestMatchers(HttpMethod.GET, "/v3/api-docs/**").permitAll() //gives public access to swagger doc openAPI urls
                                         .anyRequest().authenticated()
                         ).httpBasic(Customizer.withDefaults())
                 .exceptionHandling(exception -> exception
