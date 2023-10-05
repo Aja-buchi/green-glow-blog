@@ -33,8 +33,8 @@ public class AuthController {
             description = "Login REST API is used to authenticate a user before having access to the app "
     )
     @ApiResponse(
-            responseCode = "201",
-            description = "Http Status 201 CREATED"
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
     )
     public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
         String token = authService.login(loginDto);
@@ -52,8 +52,8 @@ public class AuthController {
             description = "Register REST API is used to register a user to the app "
     )
     @ApiResponse(
-            responseCode = "201",
-            description = "Http Status 201 CREATED"
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
     )
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){
         String response = authService.register(registerDto);

@@ -2,6 +2,7 @@ package com.springbootblog.controller;
 
 import com.springbootblog.entity.Post;
 import com.springbootblog.payload.PostDto;
+import com.springbootblog.payload.PostDtoV1;
 import com.springbootblog.payload.PostResponse;
 import com.springbootblog.service.PostService;
 import com.springbootblog.utils.AppConstants;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -82,6 +84,33 @@ public class PostController {
     )
     public ResponseEntity<PostDto> getPostById(@PathVariable Long id){
        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
+    //Get post by id Rest api Version1
+    //Versioning by URL
+    @GetMapping("/v1/{id}")
+    //Customizes swagger API documentation
+    @Operation(
+            summary = "Get Post By Id REST API",
+            description = "Get Post By Id REST API is used to get a post by id from the database "
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
+    public ResponseEntity<PostDtoV1> getPostByIdV1(@PathVariable Long id){
+        PostDto postDto = postService.getPostById(id);
+        PostDtoV1 postDtoV1 = new PostDtoV1();
+        postDtoV1.setId(postDto.getId());
+        postDtoV1.setTitle(postDto.getTitle());
+        postDtoV1.setDescription(postDto.getDescription());
+        postDtoV1.setContent(postDto.getContent());
+
+        List<String> tags = new ArrayList<>();
+        tags.add("Java");
+        tags.add("SpringBoot");
+        tags.add("AWS");
+        return ResponseEntity.ok(postDtoV1);
     }
 
     //Update post by id Rest api
