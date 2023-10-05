@@ -106,10 +106,10 @@ public class PostController {
         postDtoV1.setDescription(postDto.getDescription());
         postDtoV1.setContent(postDto.getContent());
 
-        List<String> tag = new ArrayList<>();
-        tag.add("Java");
-        tag.add("SpringBoot");
-        tag.add("AWS");
+        List<String> tags = new ArrayList<>();
+        tags.add("Java");
+        tags.add("SpringBoot");
+        tags.add("AWS");
         return ResponseEntity.ok(postDtoV1);
     }
 
